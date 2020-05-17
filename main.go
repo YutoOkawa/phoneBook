@@ -8,6 +8,7 @@ import (
 	"log"
 	"os"
 	"os/signal"
+	"unicode/utf8"
 
 	_ "github.com/mattn/go-sqlite3"
 )
@@ -21,6 +22,10 @@ type Phonebook struct {
 func validInput(str string) error {
 	if str == "" {
 		return fmt.Errorf("Input Error: %w", errors.New("Unexpected Input."))
+	}
+
+	if utf8.ValidString(str) && utf8.RuneCountInString(str) != len(str) {
+		return fmt.Errorf("Input Error: %w", errors.New("Not use ASCII."))
 	}
 	return nil
 }
