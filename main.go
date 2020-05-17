@@ -91,7 +91,9 @@ func insertTable(db *sql.DB) error {
 		} else {
 			name = inputStr
 		}
-
+		break
+	}
+	for {
 		if inputStr, err := inputElement("phoneNumber"); err != nil {
 			fmt.Println(err)
 			continue
@@ -136,10 +138,7 @@ func main() {
 	}()
 
 	quit := make(chan os.Signal)
-
 	signal.Notify(quit, os.Interrupt)
-
 	<-quit
-
 	fmt.Println(" Ctrl+Cを検知しました.プログラムを終了します.")
 }
